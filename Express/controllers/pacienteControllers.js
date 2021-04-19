@@ -1,5 +1,4 @@
 import Paciente from "../models/Paciente.js";
-import crearToken from "../helpers/GenerarToke.js";
 import { validationResult } from "express-validator";
 
 import dotenv from "dotenv";
@@ -10,8 +9,6 @@ const nuevoCliente = async (req, res, next) => {
   const paciente = new Paciente(req.body);
 
   try {
-    const { nombre, propetario, fecha, hora, sintomas } = paciente;
-
     const error = validationResult(req);
 
     if (!error.isEmpty()) {
@@ -22,18 +19,12 @@ const nuevoCliente = async (req, res, next) => {
       });
     }
 
-    const { _id, name, email } = req;
-
-    const token = await crearToken({ _id, email }, process.env.SECRETA, "2hr");
-
-    paciente.creador = _id;
     const pacientes = await paciente.save();
     res.status(200).json({
       status: "OK",
       code: 200,
       mensaje: "Usuario Agregado",
       datos: pacientes,
-      token,
     });
   } catch (error) {
     console.log(error);
@@ -49,9 +40,13 @@ const nuevoCliente = async (req, res, next) => {
 //Obtiene todos los clientes
 const obtenerCliente = async (req, res, next) => {
   try {
-    const { _id, name, email } = req;
-    const paciente = await Paciente.find({ creador: _id });
-    res.json(paciente);
+    const paciente = await Paciente.find({});
+    res.status(200).json({
+      status: "OK",
+      code: 200,
+      mensaje: "Pacientes registrados",
+      datos: paciente,
+    });
   } catch (error) {
     console.log(error);
     res.status(501).json({
@@ -66,11 +61,14 @@ const obtenerCliente = async (req, res, next) => {
 //Obtiene un cliente especifico
 const obtenerClienteId = async (req, res, next) => {
   try {
-    const { _id, name, email } = req;
-    const paciente = await Paciente.findById(req.params.id)
-      .where("creador")
-      .equals(_id);
-    res.json(paciente);
+    const paciente = await Paciente.findById(req.params.id);
+
+    res.status(200).json({
+      status: "OK",
+      code: 200,
+      mensaje: "Excelente",
+      datos: paciente,
+    });
   } catch (error) {
     console.log(error);
     res.status(501).json({
@@ -93,20 +91,9 @@ const updateCliente = async (req, res, next) => {
         mensaje: error.mapped(),
       });
     }
-    const { _id, name, email } = req;
-
-    const existe = await Paciente.findOne({ _id: req.params.id, creador: _id });
-
-    if (!existe) {
-      return res.status(501).json({
-        status: "Not found",
-        code: 501,
-        mensaje: "No tiene permiso para editar este registro",
-      });
-    }
 
     const paciente = await Paciente.findOneAndUpdate(
-      { _id: req.params.id, creador: _id },
+      { _id: req.params.id},
       req.body,
       { new: true }
     );
@@ -129,22 +116,8 @@ const updateCliente = async (req, res, next) => {
 
 const deleteCliente = async (req, res, next) => {
   try {
-    const { _id, name, email } = req;
-
-    const existe = await Paciente.findOne({ _id: req.params.id, creador: _id });
-    
-    if (!existe) {
-      return res.status(501).json({
-        status: "Not found",
-        code: 501,
-        mensaje: "No tiene permiso para eliminar este registro",
-      });
-    }
-
-
     const paciente = await Paciente.findOneAndDelete({
       _id: req.params.id,
-      creador: _id,
     });
     res.status(200).json({
       status: "OK",
