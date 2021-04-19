@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import router from "../Express/routes/route.js";
+import router from "./routes/route.js";
 import conectarDB from "./config/db.js";
 
 //Crear el servidor

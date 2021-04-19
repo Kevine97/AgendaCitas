@@ -23,7 +23,7 @@ const nuevoCliente = async (req, res, next) => {
     res.status(200).json({
       status: "OK",
       code: 200,
-      mensaje: "Usuario Agregado",
+      mensaje: "Cita registrada con exito",
       datos: pacientes,
     });
   } catch (error) {
@@ -44,7 +44,7 @@ const obtenerCliente = async (req, res, next) => {
     res.status(200).json({
       status: "OK",
       code: 200,
-      mensaje: "Pacientes registrados",
+      mensaje: "Citas registradas",
       datos: paciente,
     });
   } catch (error) {
@@ -100,7 +100,7 @@ const updateCliente = async (req, res, next) => {
     res.status(200).json({
       status: "OK",
       code: 200,
-      mensaje: "Usuario actualizado",
+      mensaje: "Cita actualizada con exito",
       datos: paciente,
     });
   } catch (error) {
@@ -122,7 +122,7 @@ const deleteCliente = async (req, res, next) => {
     res.status(200).json({
       status: "OK",
       code: 200,
-      mensaje: "Usuario eliminado",
+      mensaje: "Cita eliminado con exito",
       datos: paciente,
     });
   } catch (error) {
