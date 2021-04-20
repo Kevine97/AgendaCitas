@@ -4,7 +4,7 @@ import Cita from "./components/Cita";
 import NuevaCita from "./components/NuevaCita";
 import Pacientes from "./components/Pacientes";
 import clienteAxios from "./config/axios";
-
+import Error404 from "./components/error404";
 function App() {
   //State de la aplicacion de
 
@@ -21,13 +21,16 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={() => <Pacientes citas={citas} />} />
-        <Route exact path="/nuevaCita" component={NuevaCita} />
-        <Route exact path="/Cita/:id" component={Cita} />
-      </Switch>
-    </Router>
+    <>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={() => <Pacientes citas={citas} />} />
+          <Route exact path="/nuevaCita" component={NuevaCita} />
+          <Route exact path="/Cita/:id" component={Cita} />
+          <Route exact path="*" component={() => <Error404 />} />
+        </Switch>
+      </Router>
+    </>
   );
 }
 
