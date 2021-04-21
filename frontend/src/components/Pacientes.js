@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Spinner from "./Spinner";
 
 const Pacientes = ({ citas }) => {
-  if (citas.length === 0) return <Spinner />;
+  if (citas.length === 0 || citas === []) return <Spinner />;
 
   const { code, datos, mensaje, status } = citas;
 
@@ -30,6 +30,7 @@ const Pacientes = ({ citas }) => {
               {datos.map((cita) => (
                 <Link
                   key={cita._id}
+                  to={`/cita/${cita._id}`}
                   className="p-5 list-group-item list-group-item-action flex-column align-item-start"
                 >
                   <div className="d-flex w-100 justify-content-between mb-4">

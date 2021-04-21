@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import clienteAxios from "../config/axios";
 import Swal from "sweetalert2";
 const NuevaCita = (props) => {
@@ -29,9 +29,9 @@ const NuevaCita = (props) => {
           text: response.data.mensaje,
           icon: "success",
           confirmButtonText: "OK",
-          timer: 1500
+          timer: 1500,
         });
-
+        props.guardarConsultar(true);
         setTimeout(() => {
           props.history.push("/");
         }, 2000);
@@ -87,7 +87,7 @@ const NuevaCita = (props) => {
                   id="propietario"
                   name="propetario"
                   placeholder="Nombre Propietario"
-                  onChange={actualizarState}
+                  onChange={actualizarState}                 
                 />
               </div>
 
@@ -148,4 +148,4 @@ const NuevaCita = (props) => {
   );
 };
 
-export default NuevaCita;
+export default withRouter(NuevaCita);

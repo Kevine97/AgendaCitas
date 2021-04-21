@@ -76,7 +76,7 @@ form {
   border-color: #0c1222 !important;
 }
 
-.form-control{
+.form-control {
   outline: none !important;
   box-shadow: none !important;
 }
@@ -100,9 +100,9 @@ form {
   position: relative;
   animation: sk-chase 2.5s infinite linear both;
   left: 0;
-  bottom: 0; 
-  right: 0; 
-  top: 0; 
+  bottom: 0;
+  right: 0;
+  top: 0;
   margin: auto; /* Centramos vertical y horizontalmente */
 }
 
@@ -185,6 +185,16 @@ form {
   }
 }
 
-.boton{
+.boton {
   width: 40rem !important;
+}
+
+form textarea {
+  font-size: 18px !important;
+}
+
+@media (min-width: 378px) {
+  .margen {
+    margin-left: 1rem !important;
+  }
 }
