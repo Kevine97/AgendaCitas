@@ -6,10 +6,8 @@ import conectarDB from "./config/db.js";
 //Crear el servidor
 const app = express();
 
-
 //Habilitar cors
-app.use( cors() );
-
+app.use(cors());
 
 //conectar a la DBR
 conectarDB();
@@ -18,6 +16,7 @@ const port = process.env.PORT || 4000;
 
 //Agregar body parser para leer los datos del formulario
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 //Agregar Router
 app.use("/", router);
